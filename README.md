@@ -7,10 +7,10 @@ This project focuses on creating a Neural Network from scratch to gain a better 
     * ### [2.2 Loss Function](#22-Loss-Function)
     * ### [2.3 Backpropagation](#23-Backpropagation)
     * ### [2.4 Gradient Descent](#24-Gradient-Descent)
-* ## [3. Code Implementation](#3-Code-Implementation)
+* ## [3. Code Usage](#3-Code-Usage)
 * ## [4. Model Training Results](#4-Model-Training-Results)
-
-
+* ## [5. Acknowledgements](#5-Acknowledgements)
+* ## [6. References](#6-References)
 
 ## <a name="1-Introduction">1. Introduction</a> 
 
@@ -162,3 +162,21 @@ Stochastic Gradient Descent (SGD) updates the values after processing each input
 This technique attempts to combine the advantages of the above methods. The training dataset is divided into smaller mini-datasets, and updates to weights and biases occur after processing each mini-batch.
 
 ---
+
+
+## <a name="3-Code-Usage">3. Code Usage</a> 
+
+
+---
+
+
+## <a name="3-Code-Usage">4. Model Training Results</a> 
+
+---
+
+## <a name="5-Acknowledgements">5. Acknowledgements</a> 
+
+---
+
+
+## <a name="6-References">6. References</a> 
