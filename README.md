@@ -167,16 +167,15 @@ This technique attempts to combine the advantages of the above methods. The trai
 ## <a name="3-Code-Usage">3. Code Usage</a> 
 
 
----
 
 
-## <a name="3-Code-Usage">4. Model Training Results</a> 
+## <a name="4-Model-Training-Results">4. Model Training Results</a> 
 
----
+
 
 ## <a name="5-Acknowledgements">5. Acknowledgements</a> 
 
----
+
 
 
 ## <a name="6-References">6. References</a> 
