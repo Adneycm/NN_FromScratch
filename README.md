@@ -10,7 +10,6 @@ This project focuses on creating a Neural Network from scratch to gain a better 
 * ## [3. Code Usage](#3-Code-Usage)
 * ## [4. Model Training Results](#4-Model-Training-Results)
 * ## [5. Acknowledgements](#5-Acknowledgements)
-* ## [6. References](#6-References)
 
 ## <a name="1-Introduction">1. Introduction</a> 
 
@@ -44,6 +43,7 @@ Each neuron has weights connected to it from the previous layer (except for the 
 The input layer is considered as $a^{(0)}$ and the output layer as $a^{(n)}$, where $n$ is the number of layers mimnus one.
 
 The activation ($a$) and pre-activation ($z$) are given by: 
+
 $$ z_j^{(l)} = \sum_{i=1}^{n_{l-1}} w_{ij}^{(l)} a_i^{(l-1)} + b_j^{(l)} $$
 
 $$ a_j^{(l)} = f^{(l)}(z_j^{(l)}) $$
@@ -166,16 +166,88 @@ This technique attempts to combine the advantages of the above methods. The trai
 
 ## <a name="3-Code-Usage">3. Code Usage</a> 
 
+I've designed a class called NeuralNetwork, requiring a list containing integers as input. Each element in the list represents a layer in the neural network, including both the input and output layers. The integer at each position signifies the number of neurons in that layer. Here's an example for clarification:
 
+```python
+nn = NeuralNetwork(layers=[4,3,2])
+```
+<img src="img/nn-example.png" alt="nn-example" width="70%">
 
+All weight and bias matrices are instances of this class, created during initialization. Both weight and bias matrices are generated using a random normal distribution with an average of 0 and a standard deviation of 1. 
+You can also select the learning rate for the gradient descent update, but I've made it optional. The default value is $0.5$. The entire initialization function includes instances of activations, gradients, and the number of layers, built as shown in the following code snippet:
+
+```python
+class NeuralNetwork():
+    def __init__(self, layers, learning_rate=.5):
+        self.n_layers = len(layers)
+        # Weights
+        self.weights = [np.random.normal(loc=0.0, scale=1.0,
+                        size=(layers[i], layers[i+1])) for i in range(len(layers)-1)]
+        # Bias
+        self.bias = [np.random.normal(loc=0.0, scale=1.0,
+                     size=(i,)) for i in layers[1:]]
+        # Learning rate
+        self.learning_rate = learning_rate
+        # Activations 
+        self.a = []
+        # Gradients
+        self.grad_w = []
+        self.grad_b = []
+```
+
+The forward pass only require the input data since all weights and biases are instantiated within the class. Additionally, for this project, I've employed the sigmoid activation function for all layers in the neural network.
+
+To train the neural network, you'll only need the test data, the number of epochs, and the batch size, although I've left these last two as optional parameters with defaults of epochs=25 and batch_size=1. The function will return the epoch_loss and batch_loss.
+
+```python
+nn = NeuralNetwork([784, 32, 16, 10])
+epoch_loss, batch_loss = nn.train(x_train, y_train, epochs=25, batch_size=20)
+```
 
 ## <a name="4-Model-Training-Results">4. Model Training Results</a> 
 
+I've conducted thorough tests using the MNIST dataset to evaluate the performance of the Neural Network. Below are some key findings from the training process:
 
+Accuracy Assessment: The model achieved an accuracy of [93.46]% on the test dataset, showcasing its capability to make accurate predictions.
+
+Loss Metrics: Throughout [25] epochs of training, the model demonstrated a consistent reduction in loss, indicating improved learning and convergence over time. The epoch-wise loss metrics are detailed below:
+
+```python
+Epoch 1/25 - Loss: 0.0310
+Epoch 2/25 - Loss: 0.0156
+Epoch 3/25 - Loss: 0.0114
+Epoch 4/25 - Loss: 0.0097
+Epoch 5/25 - Loss: 0.0086
+Epoch 6/25 - Loss: 0.0079
+Epoch 7/25 - Loss: 0.0073
+Epoch 8/25 - Loss: 0.0069
+Epoch 9/25 - Loss: 0.0065
+Epoch 10/25 - Loss: 0.0062
+Epoch 11/25 - Loss: 0.0060
+Epoch 12/25 - Loss: 0.0058
+Epoch 13/25 - Loss: 0.0056
+Epoch 14/25 - Loss: 0.0054
+Epoch 15/25 - Loss: 0.0053
+Epoch 16/25 - Loss: 0.0051
+Epoch 17/25 - Loss: 0.0050
+Epoch 18/25 - Loss: 0.0049
+Epoch 19/25 - Loss: 0.0048
+Epoch 20/25 - Loss: 0.0047
+Epoch 21/25 - Loss: 0.0046
+Epoch 22/25 - Loss: 0.0045
+Epoch 23/25 - Loss: 0.0044
+Epoch 24/25 - Loss: 0.0043
+Epoch 25/25 - Loss: 0.0042
+```
+
+<img src="img/loss_over_epoch.png" alt="loss-over-epoch" width="70%">
 
 ## <a name="5-Acknowledgements">5. Acknowledgements</a> 
 
+I'd like to provide some sources of inspiration and further study materials related to this project:
 
+* [3Blue1Brown Series on Deep learning](https://www.youtube.com/watch?v=aircAruvnKk&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)
 
+* [DeepLearningAI Course](https://www.youtube.com/watch?v=CS4cs9xVecg&list=PLpFsSf5Dm-pd5d3rjNtIXUHT-v7bdaEIe)
 
-## <a name="6-References">6. References</a> 
+* [DeepLizard course on Deep Learning](https://www.youtube.com/watch?v=gZmobeGL0Yg&list=PLZbbT5o_s2xq7LwI2y8_QtvuXZedL6tQU)
